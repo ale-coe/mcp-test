@@ -1,0 +1,12 @@
+services:
+  mysql-mysql:
+    image: mysql:latest
+    container_name: mcp-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: test123
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: test
+      MYSQL_PASSWORD: test001
+    ports:
+      - '3307:3306'
