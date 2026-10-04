@@ -11,7 +11,7 @@ import {
 } from '@rekog/mcp-nest';
 import { MCPController } from './mcp.controller.js';
 import { User } from './database/entities/user.entity.js';
-import { McpService } from './mcp.service.js';
+import { McpClientService } from './mcp-client.service.js';
 
 export const mcp = new McpStrategy({
   name: 'my-mcp-server',
@@ -36,7 +36,7 @@ export const mcp = new McpStrategy({
   providers: [
     AppService,
     DbService,
-    McpService,
+    McpClientService,
     { provide: MCP_STRATEGY, useValue: mcp },
   ],
 })

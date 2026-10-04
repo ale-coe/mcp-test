@@ -5,13 +5,13 @@ import { Message } from './database/entities/message.entity.js';
 import { User } from './database/entities/user.entity.js';
 import { GetMessageDto } from './dto/get-message.dto.js';
 import { PostPromptDto } from './dto/post-prompt.dto.js';
-import { McpService } from './mcp.service.js';
+import { McpClientService } from './mcp-client.service.js';
 
 @Injectable()
 export class AppService {
   constructor(
     private readonly dbService: DbService,
-    private readonly mcpService: McpService,
+    private readonly mcpClientService: McpClientService,
   ) {}
 
   getMessages(query: GetMessageDto) {
@@ -50,7 +50,7 @@ export class AppService {
     return user;
   }
 
-  async postPrompt(body: PostPromptDto) {
-    await this.mcpService.makeMcpCall(body.prompt);
+  postPrompt(body: PostPromptDto) {
+    return this.mcpClientService.makeMcpCall(body.prompt);
   }
 }

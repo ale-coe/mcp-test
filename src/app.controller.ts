@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseIntPipe,
   Post,
   Query,
 } from '@nestjs/common';
@@ -33,7 +32,7 @@ export class AppController {
   }
 
   @Post('prompt')
-  async postPrompt(@Body() body: PostPromptDto) {
-    await this.appService.postPrompt(body);
+  postPrompt(@Body() body: PostPromptDto) {
+    return this.appService.postPrompt(body);
   }
 }
