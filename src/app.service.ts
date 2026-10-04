@@ -1,12 +1,18 @@
-import { Injectable } from '@nestjs/common';
-import { GetMessageDto } from './dto/get-message.dto.js';
-import { DbService } from './database/db.service.js';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Between, FindOptionsWhere, LessThan, MoreThan } from 'typeorm';
-import { Message } from './database/message.entity.js';
+import { DbService } from './database/db.service.js';
+import { Message } from './database/entities/message.entity.js';
+import { User } from './database/entities/user.entity.js';
+import { GetMessageDto } from './dto/get-message.dto.js';
+import { PostPromptDto } from './dto/post-prompt.dto.js';
+import { McpService } from './mcp.service.js';
 
 @Injectable()
 export class AppService {
-  constructor(private readonly dbService: DbService) {}
+  constructor(
+    private readonly dbService: DbService,
+    private readonly mcpService: McpService,
+  ) {}
 
   getMessages(query: GetMessageDto) {
     const where: FindOptionsWhere<Message> = {
@@ -22,8 +28,29 @@ export class AppService {
         : {}),
     };
 
-    return this.dbService.getRepo(Message).find({ where });
+    return this.dbService.getRepo(Message).find({
+      select: { content: true, releaseDate: true },
+      where: { ...where, deleted: false },
+    });
   }
 
-  deleteMessage(id: number) {}
+  deleteMessage(messageId: number) {
+    this.dbService.getRepo(Message).update({ messageId }, { deleted: true });
+  }
+
+  async getUserIdByName(name: string) {
+    const user = await this.dbService
+      .getRepo(User)
+      .findOne({ select: { userId: true }, where: { name } });
+
+    if (!user) {
+      throw new NotFoundException();
+    }
+
+    return user;
+  }
+
+  async postPrompt(body: PostPromptDto) {
+    await this.mcpService.makeMcpCall(body.prompt);
+  }
 }

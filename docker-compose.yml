@@ -10,3 +10,6 @@ services:
       MYSQL_PASSWORD: test001
     ports:
       - '3307:3306'
+
+
+# winpty docker exec -ti mcp-mysql bash

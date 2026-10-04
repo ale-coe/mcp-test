@@ -22,16 +22,24 @@
     "test:e2e": "vitest run --config ./vitest.config.e2e.ts"
   },
   "dependencies": {
+    "@modelcontextprotocol/client": "^2.3.0",
+    "@modelcontextprotocol/node": "^2.1.1",
+    "@modelcontextprotocol/sdk": "^1.32.0",
+    "@modelcontextprotocol/server": "^2.3.0",
     "@nestjs/common": "^12.0.1",
     "@nestjs/core": "^12.0.1",
+    "@nestjs/microservices": "^12.1.2",
     "@nestjs/platform-express": "^12.0.1",
     "@nestjs/typeorm": "^12.0.2",
+    "@rekog/mcp-nest": "^2.0.7",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "mysql2": "^3.24.5",
+    "ollama": "^0.6.4",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
-    "typeorm": "^1.1.1"
+    "typeorm": "^1.1.1",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@nestjs/cli": "^12.0.0",

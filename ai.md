@@ -1,0 +1,2 @@
+# OLLAMA
+- ollama run qwen3.5:0.8b
